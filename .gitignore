@@ -1,0 +1,10 @@
+# Common
+node_modules
+dev
+dist
+**/.DS_Store
+yarn.lock
+package-lock.json
+
+# Config
+.env

@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb",
+  "globals": {
+    "window": true,
+    "document": true,
+    "module": true,
+    "fetch": true,
+    "__env": true
+  },
+  "rules": {
+    "space-before-function-paren": ["error", "never"],
+    "comma-dangle": ["error", "never"],
+    "no-underscore-dangle": 0
+  }
+}
