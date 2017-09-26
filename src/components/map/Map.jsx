@@ -35,7 +35,7 @@ export default class Map extends React.Component {
 
     this.map = L.map(this.node, {
       minZoom: 12,
-      zoom: 12,
+      zoom: 14,
       center: [40.4188513, -3.7018343],
       detectRetina: true
     });
