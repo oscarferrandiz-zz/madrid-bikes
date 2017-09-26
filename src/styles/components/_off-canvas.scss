@@ -1,0 +1,28 @@
+.c-off-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 400px;
+  background-color: rgba(white, .8);
+  z-index: 999;
+  transform: translateX(calc(-100% + 5px));
+  transition: transform $animation-time $ease-out-sine;
+  box-shadow: 1px 1px 3px 0px rgba(#777777, .8);
+
+  &--opened {
+    transform: translateX(0);
+  }
+}
+
+.off-canvas__btn {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
