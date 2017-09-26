@@ -1,17 +1,36 @@
 import React from 'react';
 import L from 'leaflet';
 import PropTypes from 'prop-types';
-import markerIcon from '@/assets/img/marker.png';
+import redMarker from '@/assets/img/marker-red.png';
+import greenMarker from '@/assets/img/marker-green.png';
 
-const icon = L.icon({
-  iconUrl: markerIcon,
-  iconSize: [32, 32]
-});
+const makeIcon = iconUrl => (
+  L.icon({
+    iconUrl,
+    iconSize: [32, 32]
+  })
+);
+
+const redIcon = makeIcon(redMarker);
+const greenIcon = makeIcon(greenMarker);
 
 export default class Map extends React.Component {
 
   /* Lifecycle */
   componentDidMount() {
+    const { markers } = this.props;
+
+    this.createMap();
+    this.addMarkers(markers);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { markers } = nextProps;
+    this.addMarkers(markers);
+  }
+
+  /* Class methods */
+  createMap() {
     const { BASEMAP_URL } = __env;
 
     this.map = L.map(this.node, {
@@ -26,10 +45,9 @@ export default class Map extends React.Component {
     L.tileLayer(BASEMAP_URL).addTo(this.map, {}).setZIndex(0);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { markers } = nextProps;
-
+  addMarkers(markers) {
     markers.forEach((m) => {
+      const icon = m.dock_bikes > 0 ? greenIcon : redIcon;
       L.marker([m.latitude, m.longitude], { icon }).addTo(this.map);
     });
   }
