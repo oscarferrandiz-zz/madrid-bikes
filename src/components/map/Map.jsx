@@ -1,5 +1,6 @@
 import React from 'react';
 import L from 'leaflet';
+import { isEqual } from 'lodash';
 import PropTypes from 'prop-types';
 import redMarker from '@/assets/img/marker-red.png';
 import greenMarker from '@/assets/img/marker-green.png';
@@ -26,7 +27,10 @@ export default class Map extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { markers } = nextProps;
-    this.addMarkers(markers);
+
+    if (!isEqual(this.props.markers, markers)) {
+      this.addMarkers(markers);
+    }
   }
 
   /* Class methods */
