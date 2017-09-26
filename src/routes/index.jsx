@@ -5,7 +5,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from '@/components/app/App';
 
 // Pages
-import Home from '@/components/pages/Home';
+import Home from '@/components/containers/Home';
 
 const getRoutes = () => (
   <div>
