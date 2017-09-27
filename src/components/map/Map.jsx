@@ -4,6 +4,8 @@ import { isEqual } from 'lodash';
 import PropTypes from 'prop-types';
 import redMarker from '@/assets/img/marker-red.png';
 import greenMarker from '@/assets/img/marker-green.png';
+import blueMarker from '@/assets/img/marker-blue.png';
+import orangeMarker from '@/assets/img/marker-orange.png';
 import personMarker from '@/assets/img/marker-person.png';
 
 const makeIcon = iconUrl => (
@@ -15,6 +17,8 @@ const makeIcon = iconUrl => (
 
 const redIcon = makeIcon(redMarker);
 const greenIcon = makeIcon(greenMarker);
+const blueIcon = makeIcon(blueMarker);
+const orangeIcon = makeIcon(orangeMarker);
 const personIcon = makeIcon(personMarker);
 
 export default class Map extends React.Component {
@@ -60,7 +64,13 @@ export default class Map extends React.Component {
 
   addMarkers(markers) {
     markers.forEach((m) => {
-      const icon = m.dock_bikes > 0 ? greenIcon : redIcon;
+      let icon = blueIcon;
+
+      // if (m.dock_bikes && m.free_bases) icon = greenIcon;
+      // if (m.dock_bikes && !m.free_bases) icon = blueIcon;
+      // if (!m.dock_bikes && m.free_bases) icon = orangeIcon;
+      // if (!m.dock_bikes && !m.free_bases) icon = redIcon;
+
       const marker = L.marker([m.latitude, m.longitude], { icon });
       marker.addTo(this.map);
 

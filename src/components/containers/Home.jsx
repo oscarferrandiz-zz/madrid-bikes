@@ -30,7 +30,7 @@ Home.propTypes = {
 };
 
 const mapStateToProps = ({ stations }) => ({
-  stations: stationsSelector(stations.list, stations.filters),
+  stations: stationsSelector(stations.list, stations.filter),
   loading: stations.loading
 });
 

@@ -11,10 +11,7 @@ const INITIAL_STATE = {
   list: [],
   error: null,
   loading: false,
-  filters: {
-    dock_bikes: true,
-    free_bases: true
-  }
+  filter: 'all'
 };
 
 export default createReducer(INITIAL_STATE, {
@@ -43,10 +40,7 @@ export default createReducer(INITIAL_STATE, {
   [SET_FILTER](state, action) {
     return {
       ...state,
-      filters: {
-        ...state.filters,
-        [action.payload.name]: action.payload.value
-      }
+      filter: action.payload
     };
   }
 });

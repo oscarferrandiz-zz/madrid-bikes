@@ -5,6 +5,17 @@ import { setFilter } from '@/redux/modules/stations/actions';
 import { Autobind } from 'es-decorators';
 import { connect } from 'react-redux';
 
+const filterItems = [
+  {
+    label: 'Available bikes',
+    value: 'dock_bikes'
+  },
+  {
+    label: 'Available docks',
+    value: 'free_docks'
+  }
+];
+
 class Filters extends React.Component {
 
   constructor(props) {
@@ -14,10 +25,7 @@ class Filters extends React.Component {
 
   @Autobind
   onFilterChange(evt) {
-    this.props.setFilter({
-      name: evt.target.id,
-      value: evt.target.checked
-    });
+    this.props.setFilter(evt.target.id);
   }
 
   render() {
@@ -25,16 +33,22 @@ class Filters extends React.Component {
       <section className="c-filters">
         <h1 className="filters__title">Filters</h1>
         <Checkbox
-          id="free_bases"
-          label="Free bases"
+          id="all"
+          label="All"
           onChange={this.onFilterChange}
-          checked={this.props.filters.free_bases}
+          checked={this.props.filter === 'all'}
         />
         <Checkbox
           id="dock_bikes"
           label="Available bikes"
           onChange={this.onFilterChange}
-          checked={this.props.filters.dock_bikes}
+          checked={this.props.filter === 'dock_bikes'}
+        />
+        <Checkbox
+          id="free_bases"
+          label="Free bases"
+          onChange={this.onFilterChange}
+          checked={this.props.filter === 'free_bases'}
         />
       </section>
     );
@@ -43,11 +57,11 @@ class Filters extends React.Component {
 
 Filters.propTypes = {
   setFilter: PropTypes.func.isRequired,
-  filters: PropTypes.object.isRequired
+  filter: PropTypes.string.isRequired
 };
 
 const mapStateToProps = ({ stations }) => ({
-  filters: stations.filters
+  filter: stations.filter
 });
 
 const mapDispatchToProps = {
