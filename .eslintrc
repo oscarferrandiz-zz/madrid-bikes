@@ -5,7 +5,7 @@
     "document": true,
     "module": true,
     "fetch": true,
-    "__env": true
+    "__ENV__": true
   },
   "rules": {
     "space-before-function-paren": ["error", "never"],

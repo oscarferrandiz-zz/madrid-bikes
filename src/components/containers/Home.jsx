@@ -1,7 +1,7 @@
 import React from 'react';
 import Map from '@/components/map/Map';
-import OffCanvas from '@/components/off-canvas/OffCanvas';
-import Spinner from '@/components/spinner/Spinner';
+import OffCanvas from '@/components/ui/off-canvas/OffCanvas';
+import Spinner from '@/components/ui/spinner/Spinner';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 

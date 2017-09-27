@@ -35,7 +35,7 @@ export default class Map extends React.Component {
 
   /* Class methods */
   createMap() {
-    const { BASEMAP_URL } = __env;
+    const { BASEMAP_URL } = __ENV__;
 
     this.map = L.map(this.node, {
       minZoom: 12,
