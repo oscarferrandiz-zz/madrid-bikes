@@ -1,0 +1,11 @@
+.c-tooltip {
+  font-size: $font-size-normal;
+  span {
+    display: block;
+  }
+}
+
+.tooltip__title {
+  font-size: $font-size-big;
+  margin-bottom: $space * 2;
+}

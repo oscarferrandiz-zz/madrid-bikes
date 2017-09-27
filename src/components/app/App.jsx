@@ -8,6 +8,11 @@ class App extends React.Component {
   componentDidMount() {
     // Fetch data
     this.props.fetchStations();
+    this.interval = window.setInterval(this.props.fetchStations, 60 * 1000);
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.interval);
   }
 
   render() {

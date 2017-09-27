@@ -2,11 +2,11 @@ import React from 'react';
 import L from 'leaflet';
 import { isEqual } from 'lodash';
 import PropTypes from 'prop-types';
-import redMarker from '@/assets/img/marker-red.png';
-import greenMarker from '@/assets/img/marker-green.png';
 import blueMarker from '@/assets/img/marker-blue.png';
-import orangeMarker from '@/assets/img/marker-orange.png';
 import personMarker from '@/assets/img/marker-person.png';
+// import greenMarker from '@/assets/img/marker-green.png';
+// import redMarker from '@/assets/img/marker-red.png';
+// import orangeMarker from '@/assets/img/marker-orange.png';
 
 const makeIcon = iconUrl => (
   L.icon({
@@ -15,11 +15,25 @@ const makeIcon = iconUrl => (
   })
 );
 
-const redIcon = makeIcon(redMarker);
-const greenIcon = makeIcon(greenMarker);
 const blueIcon = makeIcon(blueMarker);
-const orangeIcon = makeIcon(orangeMarker);
 const personIcon = makeIcon(personMarker);
+// const redIcon = makeIcon(redMarker);
+// const greenIcon = makeIcon(greenMarker);
+// const orangeIcon = makeIcon(orangeMarker);
+
+const getTooltip = (data) => {
+  const tooltip = L.DomUtil.create('div', 'infoWindow');
+
+  tooltip.innerHTML = `
+    <div class="c-tooltip">
+      <span class="tooltip__title">${data.address}</span>
+      <span>Available docks: ${data.free_bases}</span>
+      <span>Available bikes: ${data.dock_bikes}</span>
+    </div>
+  `;
+
+  return tooltip;
+};
 
 export default class Map extends React.Component {
 
@@ -64,16 +78,9 @@ export default class Map extends React.Component {
 
   addMarkers(markers) {
     markers.forEach((m) => {
-      let icon = blueIcon;
-
-      // if (m.dock_bikes && m.free_bases) icon = greenIcon;
-      // if (m.dock_bikes && !m.free_bases) icon = blueIcon;
-      // if (!m.dock_bikes && m.free_bases) icon = orangeIcon;
-      // if (!m.dock_bikes && !m.free_bases) icon = redIcon;
-
-      const marker = L.marker([m.latitude, m.longitude], { icon });
+      const marker = L.marker([m.latitude, m.longitude], { icon: blueIcon });
       marker.addTo(this.map);
-
+      marker.bindPopup(getTooltip(m));
       this.markers.push(marker);
     });
   }
