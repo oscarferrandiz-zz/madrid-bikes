@@ -4,6 +4,7 @@ import { isEqual } from 'lodash';
 import PropTypes from 'prop-types';
 import redMarker from '@/assets/img/marker-red.png';
 import greenMarker from '@/assets/img/marker-green.png';
+import personMarker from '@/assets/img/marker-person.png';
 
 const makeIcon = iconUrl => (
   L.icon({
@@ -14,6 +15,7 @@ const makeIcon = iconUrl => (
 
 const redIcon = makeIcon(redMarker);
 const greenIcon = makeIcon(greenMarker);
+const personIcon = makeIcon(personMarker);
 
 export default class Map extends React.Component {
 
@@ -23,6 +25,7 @@ export default class Map extends React.Component {
 
     this.createMap();
     this.addMarkers(markers);
+    this.centerOnUserLocation();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,6 +57,19 @@ export default class Map extends React.Component {
       const icon = m.dock_bikes > 0 ? greenIcon : redIcon;
       L.marker([m.latitude, m.longitude], { icon }).addTo(this.map);
     });
+  }
+
+  centerOnUserLocation() {
+    const { navigator } = window;
+
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        L.marker([coords.latitude, coords.longitude], { icon: personIcon, zIndexOffset: 99999 })
+        .addTo(this.map);
+
+        this.map.setView([coords.latitude, coords.longitude], 16);
+      });
+    }
   }
 
   /* Render */
