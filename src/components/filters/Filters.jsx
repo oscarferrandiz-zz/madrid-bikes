@@ -46,7 +46,7 @@ class Filters extends React.Component {
         />
         <Checkbox
           id="free_bases"
-          label="Free bases"
+          label="Available bases"
           onChange={this.onFilterChange}
           checked={this.props.filter === 'free_bases'}
         />
