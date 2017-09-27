@@ -27,7 +27,7 @@ const getTooltip = (data) => {
   tooltip.innerHTML = `
     <div class="c-tooltip">
       <span class="tooltip__title">${data.address}</span>
-      <span>Available docks: ${data.free_bases}</span>
+      <span>Available bases: ${data.free_bases}</span>
       <span>Available bikes: ${data.dock_bikes}</span>
     </div>
   `;
