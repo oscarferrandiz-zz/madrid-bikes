@@ -1,7 +1,8 @@
 import {
   SET,
   SET_LOADING,
-  SET_ERROR
+  SET_ERROR,
+  SET_FILTER
 } from './constants';
 import { createReducer } from '@/redux/utils';
 
@@ -9,7 +10,11 @@ import { createReducer } from '@/redux/utils';
 const INITIAL_STATE = {
   list: [],
   error: null,
-  loading: false
+  loading: false,
+  filters: {
+    dock_bikes: true,
+    free_bases: true
+  }
 };
 
 export default createReducer(INITIAL_STATE, {
@@ -32,6 +37,16 @@ export default createReducer(INITIAL_STATE, {
     return {
       ...state,
       error: action.payload
+    };
+  },
+
+  [SET_FILTER](state, action) {
+    return {
+      ...state,
+      filters: {
+        ...state.filters,
+        [action.payload.name]: action.payload.value
+      }
     };
   }
 });

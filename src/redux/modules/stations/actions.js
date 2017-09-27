@@ -1,7 +1,8 @@
 import {
   SET,
   SET_LOADING,
-  SET_ERROR
+  SET_ERROR,
+  SET_FILTER
 } from './constants';
 import { getStations } from '@/utils/api';
 
@@ -21,6 +22,11 @@ const setError = error => ({
   payload: error
 });
 
+const setFilter = filter => ({
+  type: SET_FILTER,
+  payload: filter
+});
+
 /* Thunks */
 const fetchStations = () => async (dispatch) => {
   dispatch(setLoading(true));
@@ -35,4 +41,4 @@ const fetchStations = () => async (dispatch) => {
   dispatch(setLoading(false));
 };
 
-export { setStations, setLoading, setError, fetchStations };
+export { setStations, setLoading, setError, setFilter, fetchStations };

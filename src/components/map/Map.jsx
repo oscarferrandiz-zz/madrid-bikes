@@ -19,6 +19,11 @@ const personIcon = makeIcon(personMarker);
 
 export default class Map extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.markers = [];
+  }
+
   /* Lifecycle */
   componentDidMount() {
     const { markers } = this.props;
@@ -32,6 +37,7 @@ export default class Map extends React.Component {
     const { markers } = nextProps;
 
     if (!isEqual(this.props.markers, markers)) {
+      this.removeAllMarkers();
       this.addMarkers(markers);
     }
   }
@@ -55,7 +61,16 @@ export default class Map extends React.Component {
   addMarkers(markers) {
     markers.forEach((m) => {
       const icon = m.dock_bikes > 0 ? greenIcon : redIcon;
-      L.marker([m.latitude, m.longitude], { icon }).addTo(this.map);
+      const marker = L.marker([m.latitude, m.longitude], { icon });
+      marker.addTo(this.map);
+
+      this.markers.push(marker);
+    });
+  }
+
+  removeAllMarkers() {
+    this.markers.forEach((marker) => {
+      this.map.removeLayer(marker);
     });
   }
 
