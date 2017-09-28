@@ -1,9 +1,19 @@
-.c-segmented-ui {
-  position: fixed;
+.filters-content {
+  width: 100%;
+  max-width: 400px;
+  position: absolute;
   z-index: 999;
-  bottom: $space * 3;
-  left: $space * 3;
-  width: 400px;
+  bottom: 0;
+  left: 0;
+  padding: $space * 3;
+
+  @media (max-width: 720px) {
+    padding: 0;
+    max-width: 100%;
+  }
+}
+
+.c-segmented-ui {
   box-shadow: 1px 1px 5px rgba(#777777, .5);
 }
 
@@ -35,4 +45,5 @@
   cursor: pointer;
   outline: none;
   transition: background-color linear $animation-time;
+  white-space: nowrap;
 }

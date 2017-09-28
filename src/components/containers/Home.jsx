@@ -24,11 +24,13 @@ const Home = ({ stations, loading, filter, setFilter }) => {
     <div>
       <Spinner loading={loading} />
       <Map markers={stations} filter={filter} />
-      <SegmentedUi
-        options={options}
-        value={filter}
-        onChange={onChange}
-      />
+      <div className="filters-content">
+        <SegmentedUi
+          options={options}
+          value={filter}
+          onChange={onChange}
+        />
+      </div>
     </div>
   );
 };
