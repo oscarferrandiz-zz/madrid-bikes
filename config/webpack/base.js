@@ -5,16 +5,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const paths = require('../paths.js');
-const config = require('dotenv').config();
+require('dotenv').config({ silent: true });
 
 // Resolve paths from process.cwd
 const resolve = dir => path.join(process.cwd(), dir);
-
-// Stringify dotenv values
-const envConfig = Object.keys(config.parsed).reduce((acc, key) => {
-  acc[key] = JSON.stringify(config.parsed[key]);
-  return acc;
-}, {});
 
 module.exports = {
 
@@ -81,7 +75,10 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       },
-      __ENV__: envConfig
+      __ENV__: {
+        API_URL: JSON.stringify(process.env.API_URL),
+        BASEMAP_URL: JSON.stringify(process.env.BASEMAP_URL)
+      }
     })
   ]
 };
