@@ -12,6 +12,6 @@
     margin: 0 auto;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: blue;
+    border-top-color: $blue;
     animation: rotation $animation-time-4 infinite $ease-in-out-sine;
   }

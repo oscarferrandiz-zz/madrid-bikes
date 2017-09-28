@@ -2,24 +2,22 @@ import React from 'react';
 import L from 'leaflet';
 import { isEqual } from 'lodash';
 import PropTypes from 'prop-types';
-import blueMarker from '@/assets/img/marker-blue.png';
 import personMarker from '@/assets/img/marker-person.png';
-// import greenMarker from '@/assets/img/marker-green.png';
-// import redMarker from '@/assets/img/marker-red.png';
-// import orangeMarker from '@/assets/img/marker-orange.png';
 
-const makeIcon = iconUrl => (
-  L.icon({
-    iconUrl,
-    iconSize: [32, 32]
-  })
-);
+const makeIcon = (num) => {
 
-const blueIcon = makeIcon(blueMarker);
-const personIcon = makeIcon(personMarker);
-// const redIcon = makeIcon(redMarker);
-// const greenIcon = makeIcon(greenMarker);
-// const orangeIcon = makeIcon(orangeMarker);
+  let mod = 'calm';
+
+  if (num <= 2) mod = 'danger';
+  else if (num <= 5) mod = 'warning';
+
+  return L.divIcon({
+    iconSize: [32, 32],
+    className: `station-marker -${mod}`,
+    html: `<span>${num}</span>`
+  });
+};
+const personIcon = L.icon({ iconUrl: personMarker, iconSize: [32, 32] });
 
 const getTooltip = (data) => {
   const tooltip = L.DomUtil.create('div', 'infoWindow');
@@ -52,11 +50,11 @@ export default class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { markers } = nextProps;
+    const { markers, filter } = nextProps;
 
-    if (!isEqual(this.props.markers, markers)) {
+    if ((this.props.filter !== filter) || !isEqual(this.props.markers, markers)) {
       this.removeAllMarkers();
-      this.addMarkers(markers);
+      this.addMarkers(markers, filter);
     }
   }
 
@@ -76,9 +74,9 @@ export default class Map extends React.Component {
     L.tileLayer(BASEMAP_URL).addTo(this.map, {}).setZIndex(0);
   }
 
-  addMarkers(markers) {
+  addMarkers(markers, filter) {
     markers.forEach((m) => {
-      const marker = L.marker([m.latitude, m.longitude], { icon: blueIcon });
+      const marker = L.marker([m.latitude, m.longitude], { icon: makeIcon(m[filter]) });
       marker.addTo(this.map);
       marker.bindPopup(getTooltip(m));
       this.markers.push(marker);
@@ -115,10 +113,7 @@ export default class Map extends React.Component {
   }
 }
 
-Map.defaultProps = {
-  markers: []
-};
-
 Map.propTypes = {
-  markers: PropTypes.arrayOf(PropTypes.object)
+  markers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filter: PropTypes.string.isRequired
 };

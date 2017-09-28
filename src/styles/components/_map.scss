@@ -1,3 +1,49 @@
 .c-map {
   height: 100vh;
 }
+
+// markers
+.station-marker {
+  border-radius: 50%;
+  line-height: 32px;
+  text-align: center;
+  color: white;
+  box-shadow: 1px 1px 5px rgba(#777777, .5);
+  text-shadow: 1px 1px rgba(#777777, .5);
+
+  &:after {
+    display: block;
+    margin: 0 auto;
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
+    border-color: transparent;
+    margin-top: -2px;
+  }
+
+  &.-calm {
+    background-color: $green;
+
+    &:after {
+      border-top-color: $green;
+    }
+  }
+
+  &.-warning {
+    background-color: $orange;
+
+    &:after {
+      border-top-color: $orange;
+    }
+  }
+
+  &.-danger {
+    background-color: $red;
+
+    &:after {
+      border-top-color: $red;
+    }
+  }
+}

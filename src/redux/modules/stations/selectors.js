@@ -1,3 +1,3 @@
-const stationsSelector = (stations, filter) => (filter === 'all' ? stations : stations.filter(s => !!s[filter]));
+const stationsSelector = stations => stations.filter(s => !s.no_available);
 
 export { stationsSelector };

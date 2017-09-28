@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   list: [],
   error: null,
   loading: false,
-  filter: 'all'
+  filter: 'dock_bikes'
 };
 
 export default createReducer(INITIAL_STATE, {

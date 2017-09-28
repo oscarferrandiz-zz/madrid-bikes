@@ -1,0 +1,38 @@
+.c-segmented-ui {
+  position: fixed;
+  z-index: 999;
+  bottom: $space * 3;
+  left: $space * 3;
+  width: 400px;
+  box-shadow: 1px 1px 5px rgba(#777777, .5);
+}
+
+.segmented-ui-list {
+  display: flex;
+}
+
+.segmented-ui-item {
+  flex: 1;
+  text-align: center;
+
+  &.-active {
+    pointer-events: none;
+
+    .segmented-ui-btn {
+      background-color: $blue;
+      color: white;
+    }
+  }
+}
+
+.segmented-ui-btn {
+  background-color: white;
+  border: none;
+  display: block;
+  width: 100%;
+  padding: ($space * 2) ($space * 3);
+  font-size: $font-size-big;
+  cursor: pointer;
+  outline: none;
+  transition: background-color linear $animation-time;
+}

@@ -1,23 +1,37 @@
 import React from 'react';
 import Map from '@/components/map/Map';
-import OffCanvas from '@/components/ui/off-canvas/OffCanvas';
 import Spinner from '@/components/ui/spinner/Spinner';
-import Filters from '@/components/filters/Filters';
+import SegmentedUi from '@/components/ui/segmented-ui/SegmentedUi';
+import { setFilter } from '@/redux/modules/stations/actions';
 import { stationsSelector } from '@/redux/modules/stations/selectors';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function Home({ stations, loading }) {
+const options = [
+  {
+    label: 'Available bikes',
+    value: 'dock_bikes'
+  },
+  {
+    label: 'Available bases',
+    value: 'free_bases'
+  }
+];
+
+const Home = ({ stations, loading, filter, setFilter }) => {
+  const onChange = val => setFilter(val);
   return (
     <div>
-      <OffCanvas>
-        <Filters />
-      </OffCanvas>
       <Spinner loading={loading} />
-      <Map markers={stations} />
+      <Map markers={stations} filter={filter} />
+      <SegmentedUi
+        options={options}
+        value={filter}
+        onChange={onChange}
+      />
     </div>
   );
-}
+};
 
 Home.defaultProps = {
   stations: [],
@@ -26,12 +40,19 @@ Home.defaultProps = {
 
 Home.propTypes = {
   stations: PropTypes.arrayOf(PropTypes.object),
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ stations }) => ({
-  stations: stationsSelector(stations.list, stations.filter),
+  stations: stationsSelector(stations.list),
+  filter: stations.filter,
   loading: stations.loading
 });
 
-export default connect(mapStateToProps, null)(Home);
+const mapDispatchToProps = {
+  setFilter
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
