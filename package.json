@@ -52,6 +52,7 @@
     "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
     "dotenv": "^4.0.0",
+    "dotenv-webpack": "^1.5.4",
     "es-decorators": "^1.0.0",
     "leaflet": "^1.2.0",
     "lodash": "^4.17.4",
@@ -63,6 +64,7 @@
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
     "reset-css": "^2.2.0",
     "whatwg-fetch": "^2.0.3"
   }

@@ -3,7 +3,7 @@ import Map from '@/components/map/Map';
 import Spinner from '@/components/ui/spinner/Spinner';
 import SegmentedUi from '@/components/ui/segmented-ui/SegmentedUi';
 import { setFilter } from '@/redux/modules/stations/actions';
-import { stationsSelector } from '@/redux/modules/stations/selectors';
+import { activeStations } from '@/redux/modules/stations/selectors';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -47,10 +47,10 @@ Home.propTypes = {
   setFilter: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ stations }) => ({
-  stations: stationsSelector(stations.list),
-  filter: stations.filter,
-  loading: stations.loading
+const mapStateToProps = state => ({
+  stations: activeStations(state),
+  filter: state.stations.filter,
+  loading: state.stations.loading
 });
 
 const mapDispatchToProps = {

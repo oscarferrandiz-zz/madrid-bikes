@@ -1,11 +1,10 @@
 /* Webpack base settings */
 
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const paths = require('../paths.js');
-require('dotenv').config({ silent: true });
+const Dotenv = require('dotenv-webpack');
 
 // Resolve paths from process.cwd
 const resolve = dir => path.join(process.cwd(), dir);
@@ -35,14 +34,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: 'images/'
-            }
-          }
-        ]
+        use: ['file-loader']
       }
     ]
   },
@@ -70,15 +62,10 @@ module.exports = {
     // Injects CSS stylesheet
     new ExtractTextPlugin({ filename: '[name].css' }),
 
-    // Creates global variables
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      },
-      __ENV__: {
-        API_URL: JSON.stringify(process.env.API_URL),
-        BASEMAP_URL: JSON.stringify(process.env.BASEMAP_URL)
-      }
+    // Loads variables from .env
+    new Dotenv({
+      systemvars: true,
+      silent: true
     })
   ]
 };

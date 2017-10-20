@@ -1,3 +1,9 @@
-const stationsSelector = stations => stations.filter(s => !s.no_available);
+import { createSelector } from 'reselect';
 
-export { stationsSelector };
+const stationList = state => state.stations.list;
+const activeStations = createSelector(
+    stationList,
+    stations => stations.filter(station => !station.no_available)
+);
+
+export { activeStations };
