@@ -18,22 +18,19 @@ const options = [
   }
 ];
 
-const Home = ({ stations, loading, filter, setFilter }) => {
-  const onChange = val => setFilter(val);
-  return (
-    <div>
-      <Spinner loading={loading} />
-      <Map markers={stations} filter={filter} />
-      <div className="filters-content">
-        <SegmentedUi
-          options={options}
-          value={filter}
-          onChange={onChange}
-        />
-      </div>
+const Home = ({ stations, loading, filter, setFilterAction }) => (
+  <div>
+    <Spinner loading={loading} />
+    <Map markers={stations} filter={filter} />
+    <div className="filters-content">
+      <SegmentedUi
+        options={options}
+        value={filter}
+        onChange={setFilterAction}
+      />
     </div>
-  );
-};
+  </div>
+);
 
 Home.defaultProps = {
   stations: [],
@@ -44,7 +41,7 @@ Home.propTypes = {
   stations: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool,
   filter: PropTypes.string.isRequired,
-  setFilter: PropTypes.func.isRequired
+  setFilterAction: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -54,7 +51,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  setFilter
+  setFilterAction: setFilter
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
